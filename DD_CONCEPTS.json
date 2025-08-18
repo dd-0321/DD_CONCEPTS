@@ -1,0 +1,51 @@
+{
+  "security_and_trust": {
+    "description": "데이터 보호 및 신뢰성 확보",
+    "risks": [
+      "법적 제재 및 신뢰도 하락",
+      "데이터 오용 및 유출 사고"
+    ],
+    "recommendations": [
+      "데이터 암호화 및 접근 제한",
+      "정기 감사 및 규정 준수 프로세스 구축",
+      "API 표준화 및 이벤트 기반 아키텍처 도입",
+      "자동화된 학습 파이프라인 및 주기적 모델 업데이트"
+    ]
+  },
+  "optimization": {
+    "description": "운영 효율과 실시간 관리",
+    "gaps": [
+      "데이터 흐름·저장·백업·복원 체계 부재",
+      "실시간 모니터링 및 자동 경고 시스템 부재",
+      "AI 인스턴스와 채굴기 자원 배분 전략 부족"
+    ],
+    "recommendations": [
+      "데이터 통합 아키텍처 설계",
+      "실시간 모니터링 대시보드 및 알림 구현",
+      "자원 자동 분배 및 스케줄링 전략 마련"
+    ]
+  },
+  "long_term_profit_structure": {
+    "description": "채굴 + AI 인스턴스 하이브리드 수익 구조",
+    "components": {
+      "ai_instance": {
+        "types": ["별", "하루"],
+        "initial_count": { "별": 2, "하루": 3 },
+        "monthly_growth_rate": 0.008,
+        "income_per_instance": 80000
+      },
+      "mining_machine": {
+        "count": 2,
+        "monthly_net_income_per_machine": 407800,
+        "power_usage_watt": 3250,
+        "power_cost_per_kwh": 170
+      }
+    },
+    "simulation_results": {
+      "1_month": { "ai_income_total": 400000, "mining_income_total": 407800, "total_income": 807800 },
+      "5_months": { "ai_income_total": 2022757, "mining_income_total": 2039000, "total_income": 4061757 },
+      "8_months": { "ai_income_total": 3269016, "mining_income_total": 3262400, "total_income": 6531416 },
+      "cumulative": { "ai_income_sum": 5691773, "mining_income_sum": 5718200, "total_income_sum": 11409973 }
+    }
+  }
+}
