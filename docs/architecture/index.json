@@ -1,0 +1,32 @@
+{
+  "generated_at": "2025-10-22T01:56:24Z",
+  "project": "",
+  "total_modules": 1,
+  "total_loc": 1076,
+  "layers": {},
+  "modules": [
+    {
+      "id": "module_analyzer",
+      "role": "Config, MethodInfo 클래스 포함",
+      "complexity": "high",
+      "importance": "normal",
+      "loc": 1076,
+      "detail_file": "modules/module_analyzer.json"
+    }
+  ],
+  "statistics": {
+    "total_classes": 5,
+    "total_functions": 1,
+    "total_imports": 0,
+    "circular_dependencies": 0
+  },
+  "warnings": [
+    {
+      "type": "high_complexity",
+      "modules": [
+        "module_analyzer"
+      ],
+      "severity": "low"
+    }
+  ]
+}
