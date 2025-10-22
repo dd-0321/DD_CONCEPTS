@@ -1,0 +1,1394 @@
+{
+  "module_id": "module_analyzer",
+  "file_path": "module_analyzer.py",
+  "generated_at": "2025-10-22T01:56:24Z",
+  "summary": {
+    "one_liner": "Config, MethodInfo 클래스 포함",
+    "description": "이 모듈은 5개 클래스와 1개 함수를 포함합니다.",
+    "responsibilities": [
+      "ModuleAnalyzer: 21개 메서드"
+    ],
+    "complexity_level": "high",
+    "importance": "normal"
+  },
+  "structure": {
+    "classes": [
+      {
+        "name": "Config",
+        "docstring": "분석 도구 설정 상수",
+        "line_start": 30,
+        "line_end": 48,
+        "base_classes": [],
+        "methods": []
+      },
+      {
+        "name": "MethodInfo",
+        "docstring": "메서드 정보",
+        "line_start": 56,
+        "line_end": 67,
+        "base_classes": [],
+        "methods": []
+      },
+      {
+        "name": "ClassInfo",
+        "docstring": "클래스 정보",
+        "line_start": 71,
+        "line_end": 78,
+        "base_classes": [],
+        "methods": []
+      },
+      {
+        "name": "ModuleStructure",
+        "docstring": "모듈 구조",
+        "line_start": 82,
+        "line_end": 87,
+        "base_classes": [],
+        "methods": []
+      },
+      {
+        "name": "ModuleAnalyzer",
+        "docstring": "코드베이스 자동 분석 도구 (개선 버전)",
+        "line_start": 94,
+        "line_end": 1006,
+        "base_classes": [],
+        "methods": [
+          {
+            "name": "__init__",
+            "signature": "def __init__(self, project_root: Path, use_ai: bool, use_cache: bool)",
+            "docstring": null,
+            "params": [
+              {
+                "name": "self"
+              },
+              {
+                "name": "project_root",
+                "type": "Path"
+              },
+              {
+                "name": "use_ai",
+                "type": "bool"
+              },
+              {
+                "name": "use_cache",
+                "type": "bool"
+              }
+            ],
+            "return_type": null,
+            "line_start": 97,
+            "line_end": 120,
+            "complexity": 3,
+            "is_async": false,
+            "calls": [
+              {
+                "type": "function",
+                "name": "Path"
+              },
+              {
+                "type": "external",
+                "name": "self.output_dir.mkdir"
+              },
+              {
+                "type": "external",
+                "name": "(self.output_dir / 'modules').mkdir"
+              },
+              {
+                "type": "external",
+                "name": "(self.output_dir / 'relationships').mkdir"
+              },
+              {
+                "type": "external",
+                "name": "logger.info"
+              },
+              {
+                "type": "external",
+                "name": "self.cache_dir.mkdir"
+              }
+            ]
+          },
+          {
+            "name": "analyze_project",
+            "signature": "async def analyze_project(self, target_dir: str, exclude_patterns: Optional[List[str]])",
+            "docstring": "전체 프로젝트 분석",
+            "params": [
+              {
+                "name": "self"
+              },
+              {
+                "name": "target_dir",
+                "type": "str"
+              },
+              {
+                "name": "exclude_patterns",
+                "type": "Optional[List[str]]"
+              }
+            ],
+            "return_type": null,
+            "line_start": 122,
+            "line_end": 171,
+            "complexity": 3,
+            "is_async": true,
+            "calls": [
+              {
+                "type": "external",
+                "name": "time.time"
+              },
+              {
+                "type": "external",
+                "name": "logger.info"
+              },
+              {
+                "type": "method",
+                "name": "_find_python_files"
+              },
+              {
+                "type": "method",
+                "name": "_analyze_relationships"
+              },
+              {
+                "type": "method",
+                "name": "_create_index"
+              },
+              {
+                "type": "method",
+                "name": "_save_documentation"
+              },
+              {
+                "type": "external",
+                "name": "logger.warning"
+              },
+              {
+                "type": "method",
+                "name": "_analyze_all_files"
+              },
+              {
+                "type": "function",
+                "name": "len"
+              }
+            ]
+          },
+          {
+            "name": "_analyze_all_files",
+            "signature": "async def _analyze_all_files(self, python_files: List[Path]) -> Dict[str, Dict[str, Any]]",
+            "docstring": "모든 파일을 병렬로 분석",
+            "params": [
+              {
+                "name": "self"
+              },
+              {
+                "name": "python_files",
+                "type": "List[Path]"
+              }
+            ],
+            "return_type": "Dict[str, Dict[str, Any]]",
+            "line_start": 173,
+            "line_end": 201,
+            "complexity": 3,
+            "is_async": true,
+            "calls": [
+              {
+                "type": "function",
+                "name": "enumerate"
+              },
+              {
+                "type": "method",
+                "name": "analyze_file"
+              },
+              {
+                "type": "external",
+                "name": "asyncio.gather"
+              },
+              {
+                "type": "function",
+                "name": "zip"
+              },
+              {
+                "type": "external",
+                "name": "file_path.relative_to"
+              },
+              {
+                "type": "function",
+                "name": "isinstance"
+              },
+              {
+                "type": "external",
+                "name": "logger.info"
+              },
+              {
+                "type": "external",
+                "name": "result.pop"
+              },
+              {
+                "type": "external",
+                "name": "logger.error"
+              },
+              {
+                "type": "external",
+                "name": "result.get"
+              },
+              {
+                "type": "function",
+                "name": "len"
+              }
+            ]
+          },
+          {
+            "name": "_find_python_files",
+            "signature": "def _find_python_files(self, directory: Path, exclude_patterns: List[str]) -> List[Path]",
+            "docstring": "Python 파일 찾기 (보안 강화)",
+            "params": [
+              {
+                "name": "self"
+              },
+              {
+                "name": "directory",
+                "type": "Path"
+              },
+              {
+                "name": "exclude_patterns",
+                "type": "List[str]"
+              }
+            ],
+            "return_type": "List[Path]",
+            "line_start": 203,
+            "line_end": 257,
+            "complexity": 10,
+            "is_async": false,
+            "calls": [
+              {
+                "type": "external",
+                "name": "directory.rglob"
+              },
+              {
+                "type": "function",
+                "name": "sorted"
+              },
+              {
+                "type": "external",
+                "name": "directory.resolve"
+              },
+              {
+                "type": "external",
+                "name": "py_file.is_symlink"
+              },
+              {
+                "type": "function",
+                "name": "any"
+              },
+              {
+                "type": "external",
+                "name": "python_files.append"
+              },
+              {
+                "type": "external",
+                "name": "logger.error"
+              },
+              {
+                "type": "external",
+                "name": "logger.warning"
+              },
+              {
+                "type": "external",
+                "name": "py_file.resolve().relative_to"
+              },
+              {
+                "type": "external",
+                "name": "py_file.stat"
+              },
+              {
+                "type": "external",
+                "name": "py_file.resolve"
+              },
+              {
+                "type": "function",
+                "name": "str"
+              }
+            ]
+          },
+          {
+            "name": "_get_file_hash",
+            "signature": "def _get_file_hash(self, file_path: Path) -> str",
+            "docstring": "파일 해시 계산 (캐싱용)",
+            "params": [
+              {
+                "name": "self"
+              },
+              {
+                "name": "file_path",
+                "type": "Path"
+              }
+            ],
+            "return_type": "str",
+            "line_start": 259,
+            "line_end": 265,
+            "complexity": 2,
+            "is_async": false,
+            "calls": [
+              {
+                "type": "function",
+                "name": "open"
+              },
+              {
+                "type": "external",
+                "name": "hashlib.sha256(f.read()).hexdigest"
+              },
+              {
+                "type": "external",
+                "name": "hashlib.sha256"
+              },
+              {
+                "type": "external",
+                "name": "f.read"
+              }
+            ]
+          },
+          {
+            "name": "analyze_file",
+            "signature": "async def analyze_file(self, file_path: Path) -> Dict[str, Any]",
+            "docstring": "단일 파일 분석 (캐싱 지원)",
+            "params": [
+              {
+                "name": "self"
+              },
+              {
+                "name": "file_path",
+                "type": "Path"
+              }
+            ],
+            "return_type": "Dict[str, Any]",
+            "line_start": 267,
+            "line_end": 338,
+            "complexity": 11,
+            "is_async": true,
+            "calls": [
+              {
+                "type": "external",
+                "name": "file_path.relative_to"
+              },
+              {
+                "type": "external",
+                "name": "str(rel_path.with_suffix('')).replace('/', '.').replace"
+              },
+              {
+                "type": "method",
+                "name": "_read_file_safe"
+              },
+              {
+                "type": "method",
+                "name": "_extract_structure"
+              },
+              {
+                "type": "method",
+                "name": "_create_module_doc"
+              },
+              {
+                "type": "method",
+                "name": "_get_file_hash"
+              },
+              {
+                "type": "external",
+                "name": "cache_file.exists"
+              },
+              {
+                "type": "method",
+                "name": "_create_error_doc"
+              },
+              {
+                "type": "external",
+                "name": "ast.parse"
+              },
+              {
+                "type": "method",
+                "name": "_create_default_description"
+              },
+              {
+                "type": "external",
+                "name": "str(rel_path.with_suffix('')).replace"
+              },
+              {
+                "type": "function",
+                "name": "str"
+              },
+              {
+                "type": "external",
+                "name": "logger.debug"
+              },
+              {
+                "type": "method",
+                "name": "_ask_ai_about_module"
+              },
+              {
+                "type": "function",
+                "name": "open"
+              },
+              {
+                "type": "external",
+                "name": "json.dump"
+              },
+              {
+                "type": "external",
+                "name": "module_id.replace"
+              },
+              {
+                "type": "external",
+                "name": "json.load"
+              },
+              {
+                "type": "external",
+                "name": "cached.get"
+              },
+              {
+                "type": "external",
+                "name": "rel_path.with_suffix"
+              }
+            ]
+          },
+          {
+            "name": "_read_file_safe",
+            "signature": "def _read_file_safe(self, file_path: Path) -> Optional[str]",
+            "docstring": "안전한 파일 읽기 (인코딩 처리)",
+            "params": [
+              {
+                "name": "self"
+              },
+              {
+                "name": "file_path",
+                "type": "Path"
+              }
+            ],
+            "return_type": "Optional[str]",
+            "line_start": 340,
+            "line_end": 356,
+            "complexity": 3,
+            "is_async": false,
+            "calls": [
+              {
+                "type": "function",
+                "name": "open"
+              },
+              {
+                "type": "external",
+                "name": "f.read"
+              },
+              {
+                "type": "external",
+                "name": "logger.warning"
+              }
+            ]
+          },
+          {
+            "name": "_extract_structure",
+            "signature": "def _extract_structure(self, tree: ast.AST, code: str) -> ModuleStructure",
+            "docstring": "AST에서 구조 추출",
+            "params": [
+              {
+                "name": "self"
+              },
+              {
+                "name": "tree",
+                "type": "ast.AST"
+              },
+              {
+                "name": "code",
+                "type": "str"
+              }
+            ],
+            "return_type": "ModuleStructure",
+            "line_start": 358,
+            "line_end": 407,
+            "complexity": 13,
+            "is_async": false,
+            "calls": [
+              {
+                "type": "external",
+                "name": "code.split"
+              },
+              {
+                "type": "function",
+                "name": "ModuleStructure"
+              },
+              {
+                "type": "function",
+                "name": "isinstance"
+              },
+              {
+                "type": "method",
+                "name": "_extract_class"
+              },
+              {
+                "type": "external",
+                "name": "classes.append"
+              },
+              {
+                "type": "method",
+                "name": "_extract_method"
+              },
+              {
+                "type": "external",
+                "name": "functions.append"
+              },
+              {
+                "type": "external",
+                "name": "imports.append"
+              },
+              {
+                "type": "external",
+                "name": "target.id.isupper"
+              },
+              {
+                "type": "external",
+                "name": "ast.literal_eval"
+              }
+            ]
+          },
+          {
+            "name": "_extract_class",
+            "signature": "def _extract_class(self, node: ast.ClassDef, code_lines: List[str]) -> ClassInfo",
+            "docstring": "클래스 정보 추출",
+            "params": [
+              {
+                "name": "self"
+              },
+              {
+                "name": "node",
+                "type": "ast.ClassDef"
+              },
+              {
+                "name": "code_lines",
+                "type": "List[str]"
+              }
+            ],
+            "return_type": "ClassInfo",
+            "line_start": 409,
+            "line_end": 436,
+            "complexity": 8,
+            "is_async": false,
+            "calls": [
+              {
+                "type": "function",
+                "name": "ClassInfo"
+              },
+              {
+                "type": "function",
+                "name": "isinstance"
+              },
+              {
+                "type": "method",
+                "name": "_extract_method"
+              },
+              {
+                "type": "external",
+                "name": "methods.append"
+              },
+              {
+                "type": "external",
+                "name": "base_classes.append"
+              },
+              {
+                "type": "external",
+                "name": "ast.get_docstring"
+              },
+              {
+                "type": "external",
+                "name": "ast.unparse"
+              }
+            ]
+          },
+          {
+            "name": "_extract_method",
+            "signature": "def _extract_method(self, node: ast.FunctionDef, code_lines: List[str]) -> MethodInfo",
+            "docstring": "메서드/함수 정보 추출 (최적화: 한 번의 walk)",
+            "params": [
+              {
+                "name": "self"
+              },
+              {
+                "name": "node",
+                "type": "ast.FunctionDef"
+              },
+              {
+                "name": "code_lines",
+                "type": "List[str]"
+              }
+            ],
+            "return_type": "MethodInfo",
+            "line_start": 438,
+            "line_end": 490,
+            "complexity": 10,
+            "is_async": false,
+            "calls": [
+              {
+                "type": "method",
+                "name": "_extract_calls_and_complexity"
+              },
+              {
+                "type": "function",
+                "name": "MethodInfo"
+              },
+              {
+                "type": "external",
+                "name": "params.append"
+              },
+              {
+                "type": "external",
+                "name": "ast.unparse"
+              },
+              {
+                "type": "external",
+                "name": "param_strs.append"
+              },
+              {
+                "type": "external",
+                "name": "', '.join"
+              },
+              {
+                "type": "external",
+                "name": "ast.get_docstring"
+              },
+              {
+                "type": "function",
+                "name": "isinstance"
+              }
+            ]
+          },
+          {
+            "name": "_extract_calls_and_complexity",
+            "signature": "def _extract_calls_and_complexity(self, node: ast.FunctionDef) -> Tuple[List[Dict[str, str]], int]",
+            "docstring": "함수 내부 호출 및 복잡도를 한 번의 순회로 계산 (최적화)",
+            "params": [
+              {
+                "name": "self"
+              },
+              {
+                "name": "node",
+                "type": "ast.FunctionDef"
+              }
+            ],
+            "return_type": "Tuple[List[Dict[str, str]], int]",
+            "line_start": 492,
+            "line_end": 531,
+            "complexity": 12,
+            "is_async": false,
+            "calls": [
+              {
+                "type": "function",
+                "name": "set"
+              },
+              {
+                "type": "external",
+                "name": "ast.walk"
+              },
+              {
+                "type": "function",
+                "name": "isinstance"
+              },
+              {
+                "type": "function",
+                "name": "len"
+              },
+              {
+                "type": "external",
+                "name": "calls.append"
+              },
+              {
+                "type": "external",
+                "name": "seen_calls.add"
+              },
+              {
+                "type": "external",
+                "name": "ast.unparse"
+              }
+            ]
+          },
+          {
+            "name": "_ask_ai_about_module",
+            "signature": "async def _ask_ai_about_module(self, code: str, structure: ModuleStructure, module_id: str) -> Dict[str, Any]",
+            "docstring": "AI에게 모듈 역할 물어보기",
+            "params": [
+              {
+                "name": "self"
+              },
+              {
+                "name": "code",
+                "type": "str"
+              },
+              {
+                "name": "structure",
+                "type": "ModuleStructure"
+              },
+              {
+                "name": "module_id",
+                "type": "str"
+              }
+            ],
+            "return_type": "Dict[str, Any]",
+            "line_start": 533,
+            "line_end": 576,
+            "complexity": 3,
+            "is_async": true,
+            "calls": [
+              {
+                "type": "function",
+                "name": "Exception"
+              },
+              {
+                "type": "function",
+                "name": "len"
+              },
+              {
+                "type": "external",
+                "name": "method_summary.append"
+              }
+            ]
+          },
+          {
+            "name": "_create_default_description",
+            "signature": "def _create_default_description(self, structure: ModuleStructure) -> Dict[str, Any]",
+            "docstring": "AI 없이 기본 설명 생성",
+            "params": [
+              {
+                "name": "self"
+              },
+              {
+                "name": "structure",
+                "type": "ModuleStructure"
+              }
+            ],
+            "return_type": "Dict[str, Any]",
+            "line_start": 578,
+            "line_end": 610,
+            "complexity": 6,
+            "is_async": false,
+            "calls": [
+              {
+                "type": "function",
+                "name": "sum"
+              },
+              {
+                "type": "external",
+                "name": "', '.join"
+              },
+              {
+                "type": "external",
+                "name": "responsibilities.append"
+              },
+              {
+                "type": "function",
+                "name": "len"
+              }
+            ]
+          },
+          {
+            "name": "_create_module_doc",
+            "signature": "def _create_module_doc(self, module_id: str, file_path: str, structure: ModuleStructure, ai_description: Dict[str, Any], code: str) -> Dict[str, Any]",
+            "docstring": "최종 모듈 문서 생성",
+            "params": [
+              {
+                "name": "self"
+              },
+              {
+                "name": "module_id",
+                "type": "str"
+              },
+              {
+                "name": "file_path",
+                "type": "str"
+              },
+              {
+                "name": "structure",
+                "type": "ModuleStructure"
+              },
+              {
+                "name": "ai_description",
+                "type": "Dict[str, Any]"
+              },
+              {
+                "name": "code",
+                "type": "str"
+              }
+            ],
+            "return_type": "Dict[str, Any]",
+            "line_start": 612,
+            "line_end": 719,
+            "complexity": 10,
+            "is_async": false,
+            "calls": [
+              {
+                "type": "external",
+                "name": "classes_dict.append"
+              },
+              {
+                "type": "external",
+                "name": "functions_dict.append"
+              },
+              {
+                "type": "external",
+                "name": "time.strftime"
+              },
+              {
+                "type": "external",
+                "name": "cls_dict['methods'].append"
+              },
+              {
+                "type": "external",
+                "name": "time.gmtime"
+              },
+              {
+                "type": "function",
+                "name": "len"
+              },
+              {
+                "type": "function",
+                "name": "sum"
+              },
+              {
+                "type": "external",
+                "name": "high_complexity_methods.append"
+              },
+              {
+                "type": "external",
+                "name": "code.split"
+              }
+            ]
+          },
+          {
+            "name": "_create_error_doc",
+            "signature": "def _create_error_doc(self, module_id: str, file_path: str, error: str) -> Dict[str, Any]",
+            "docstring": "에러 발생 시 기본 문서",
+            "params": [
+              {
+                "name": "self"
+              },
+              {
+                "name": "module_id",
+                "type": "str"
+              },
+              {
+                "name": "file_path",
+                "type": "str"
+              },
+              {
+                "name": "error",
+                "type": "str"
+              }
+            ],
+            "return_type": "Dict[str, Any]",
+            "line_start": 721,
+            "line_end": 754,
+            "complexity": 1,
+            "is_async": false,
+            "calls": [
+              {
+                "type": "external",
+                "name": "time.strftime"
+              },
+              {
+                "type": "external",
+                "name": "time.gmtime"
+              }
+            ]
+          },
+          {
+            "name": "_analyze_relationships",
+            "signature": "def _analyze_relationships(self, all_modules: Dict[str, Dict[str, Any]]) -> Dict[str, Any]",
+            "docstring": "모듈 간 관계 분석",
+            "params": [
+              {
+                "name": "self"
+              },
+              {
+                "name": "all_modules",
+                "type": "Dict[str, Dict[str, Any]]"
+              }
+            ],
+            "return_type": "Dict[str, Any]",
+            "line_start": 756,
+            "line_end": 799,
+            "complexity": 8,
+            "is_async": false,
+            "calls": [
+              {
+                "type": "external",
+                "name": "all_modules.items"
+              },
+              {
+                "type": "method",
+                "name": "_find_cycles"
+              },
+              {
+                "type": "method",
+                "name": "_is_internal_module"
+              },
+              {
+                "type": "function",
+                "name": "sum"
+              },
+              {
+                "type": "function",
+                "name": "len"
+              },
+              {
+                "type": "external",
+                "name": "imports.append"
+              },
+              {
+                "type": "external",
+                "name": "calls.append"
+              },
+              {
+                "type": "external",
+                "name": "import_graph.values"
+              },
+              {
+                "type": "external",
+                "name": "call_graph.values"
+              }
+            ]
+          },
+          {
+            "name": "_is_internal_module",
+            "signature": "def _is_internal_module(self, module_name: str, all_modules: Dict[str, Dict[str, Any]]) -> bool",
+            "docstring": "내부 모듈인지 확인 (개선된 로직)",
+            "params": [
+              {
+                "name": "self"
+              },
+              {
+                "name": "module_name",
+                "type": "str"
+              },
+              {
+                "name": "all_modules",
+                "type": "Dict[str, Dict[str, Any]]"
+              }
+            ],
+            "return_type": "bool",
+            "line_start": 801,
+            "line_end": 823,
+            "complexity": 4,
+            "is_async": false,
+            "calls": [
+              {
+                "type": "external",
+                "name": "module_name.split"
+              },
+              {
+                "type": "external",
+                "name": "all_modules.keys"
+              },
+              {
+                "type": "external",
+                "name": "mod_id.split"
+              },
+              {
+                "type": "function",
+                "name": "min"
+              },
+              {
+                "type": "function",
+                "name": "len"
+              }
+            ]
+          },
+          {
+            "name": "_find_cycles",
+            "signature": "def _find_cycles(self, graph: Dict[str, List[str]]) -> List[List[str]]",
+            "docstring": "순환 의존성 찾기 (개선된 알고리즘)",
+            "params": [
+              {
+                "name": "self"
+              },
+              {
+                "name": "graph",
+                "type": "Dict[str, List[str]]"
+              }
+            ],
+            "return_type": "List[List[str]]",
+            "line_start": 825,
+            "line_end": 878,
+            "complexity": 13,
+            "is_async": false,
+            "calls": [
+              {
+                "type": "function",
+                "name": "set"
+              },
+              {
+                "type": "external",
+                "name": "visited.add"
+              },
+              {
+                "type": "external",
+                "name": "rec_stack.add"
+              },
+              {
+                "type": "external",
+                "name": "graph.get"
+              },
+              {
+                "type": "external",
+                "name": "rec_stack.remove"
+              },
+              {
+                "type": "function",
+                "name": "dfs"
+              },
+              {
+                "type": "external",
+                "name": "path.index"
+              },
+              {
+                "type": "external",
+                "name": "cycle.index"
+              },
+              {
+                "type": "function",
+                "name": "min"
+              },
+              {
+                "type": "external",
+                "name": "cycles.append"
+              },
+              {
+                "type": "function",
+                "name": "len"
+              },
+              {
+                "type": "function",
+                "name": "range"
+              }
+            ]
+          },
+          {
+            "name": "_create_index",
+            "signature": "def _create_index(self, all_modules: Dict[str, Dict[str, Any]], relationships: Dict[str, Any]) -> Dict[str, Any]",
+            "docstring": "index.json 생성",
+            "params": [
+              {
+                "name": "self"
+              },
+              {
+                "name": "all_modules",
+                "type": "Dict[str, Dict[str, Any]]"
+              },
+              {
+                "name": "relationships",
+                "type": "Dict[str, Any]"
+              }
+            ],
+            "return_type": "Dict[str, Any]",
+            "line_start": 880,
+            "line_end": 943,
+            "complexity": 4,
+            "is_async": false,
+            "calls": [
+              {
+                "type": "method",
+                "name": "_categorize_layers"
+              },
+              {
+                "type": "external",
+                "name": "all_modules.items"
+              },
+              {
+                "type": "external",
+                "name": "modules_summary.sort"
+              },
+              {
+                "type": "external",
+                "name": "modules_summary.append"
+              },
+              {
+                "type": "external",
+                "name": "time.strftime"
+              },
+              {
+                "type": "function",
+                "name": "len"
+              },
+              {
+                "type": "function",
+                "name": "sum"
+              },
+              {
+                "type": "external",
+                "name": "index['warnings'].append"
+              },
+              {
+                "type": "external",
+                "name": "time.gmtime"
+              },
+              {
+                "type": "external",
+                "name": "all_modules.values"
+              },
+              {
+                "type": "external",
+                "name": "importance_order.get"
+              },
+              {
+                "type": "external",
+                "name": "module_id.replace"
+              }
+            ]
+          },
+          {
+            "name": "_categorize_layers",
+            "signature": "def _categorize_layers(self, all_modules: Dict[str, Dict[str, Any]]) -> Dict[str, Any]",
+            "docstring": "모듈을 레이어별로 분류",
+            "params": [
+              {
+                "name": "self"
+              },
+              {
+                "name": "all_modules",
+                "type": "Dict[str, Dict[str, Any]]"
+              }
+            ],
+            "return_type": "Dict[str, Any]",
+            "line_start": 945,
+            "line_end": 968,
+            "complexity": 4,
+            "is_async": false,
+            "calls": [
+              {
+                "type": "external",
+                "name": "all_modules.keys"
+              },
+              {
+                "type": "external",
+                "name": "module_id.split"
+              },
+              {
+                "type": "function",
+                "name": "len"
+              },
+              {
+                "type": "external",
+                "name": "layers[layer_name]['modules'].append"
+              }
+            ]
+          },
+          {
+            "name": "_save_documentation",
+            "signature": "def _save_documentation(self, all_modules: Dict[str, Dict[str, Any]], relationships: Dict[str, Any], index: Dict[str, Any])",
+            "docstring": "문서 파일 저장 (병렬 처리)",
+            "params": [
+              {
+                "name": "self"
+              },
+              {
+                "name": "all_modules",
+                "type": "Dict[str, Dict[str, Any]]"
+              },
+              {
+                "name": "relationships",
+                "type": "Dict[str, Any]"
+              },
+              {
+                "name": "index",
+                "type": "Dict[str, Any]"
+              }
+            ],
+            "return_type": null,
+            "line_start": 970,
+            "line_end": 1006,
+            "complexity": 3,
+            "is_async": false,
+            "calls": [
+              {
+                "type": "external",
+                "name": "logger.info"
+              },
+              {
+                "type": "function",
+                "name": "ThreadPoolExecutor"
+              },
+              {
+                "type": "external",
+                "name": "futures.append"
+              },
+              {
+                "type": "external",
+                "name": "all_modules.items"
+              },
+              {
+                "type": "function",
+                "name": "open"
+              },
+              {
+                "type": "external",
+                "name": "json.dump"
+              },
+              {
+                "type": "external",
+                "name": "executor.submit"
+              },
+              {
+                "type": "external",
+                "name": "future.result"
+              },
+              {
+                "type": "function",
+                "name": "len"
+              },
+              {
+                "type": "external",
+                "name": "module_id.replace"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [
+      {
+        "name": "main",
+        "signature": "async def main()",
+        "docstring": "CLI 진입점",
+        "params": [],
+        "return_type": null,
+        "line_start": 1013,
+        "line_end": 1071,
+        "complexity": 1,
+        "is_async": true,
+        "calls": [
+          {
+            "type": "external",
+            "name": "argparse.ArgumentParser"
+          },
+          {
+            "type": "external",
+            "name": "parser.add_argument"
+          },
+          {
+            "type": "external",
+            "name": "parser.parse_args"
+          },
+          {
+            "type": "function",
+            "name": "ModuleAnalyzer"
+          },
+          {
+            "type": "external",
+            "name": "analyzer.analyze_project"
+          }
+        ]
+      }
+    ],
+    "imports": [
+      {
+        "module": "ast",
+        "alias": null,
+        "type": "import"
+      },
+      {
+        "module": "json",
+        "alias": null,
+        "type": "import"
+      },
+      {
+        "module": "asyncio",
+        "alias": null,
+        "type": "import"
+      },
+      {
+        "module": "time",
+        "alias": null,
+        "type": "import"
+      },
+      {
+        "module": "hashlib",
+        "alias": null,
+        "type": "import"
+      },
+      {
+        "module": "pathlib",
+        "items": [
+          "Path"
+        ],
+        "type": "from"
+      },
+      {
+        "module": "typing",
+        "items": [
+          "Dict",
+          "Any",
+          "List",
+          "Optional",
+          "Tuple",
+          "Set"
+        ],
+        "type": "from"
+      },
+      {
+        "module": "dataclasses",
+        "items": [
+          "dataclass",
+          "field"
+        ],
+        "type": "from"
+      },
+      {
+        "module": "concurrent.futures",
+        "items": [
+          "ThreadPoolExecutor"
+        ],
+        "type": "from"
+      },
+      {
+        "module": "logging",
+        "alias": null,
+        "type": "import"
+      }
+    ],
+    "constants": {}
+  },
+  "metrics": {
+    "total_lines": 1076,
+    "num_classes": 5,
+    "num_functions": 1,
+    "num_methods": 21,
+    "total_complexity": 135
+  },
+  "warnings": {
+    "high_complexity": [
+      {
+        "class": "ModuleAnalyzer",
+        "method": "analyze_file",
+        "complexity": 11,
+        "lines": [
+          267,
+          338
+        ]
+      },
+      {
+        "class": "ModuleAnalyzer",
+        "method": "_extract_structure",
+        "complexity": 13,
+        "lines": [
+          358,
+          407
+        ]
+      },
+      {
+        "class": "ModuleAnalyzer",
+        "method": "_extract_calls_and_complexity",
+        "complexity": 12,
+        "lines": [
+          492,
+          531
+        ]
+      },
+      {
+        "class": "ModuleAnalyzer",
+        "method": "_find_cycles",
+        "complexity": 13,
+        "lines": [
+          825,
+          878
+        ]
+      }
+    ]
+  },
+  "file_hash": "5c446a4b0da9e5f695a34b61c0d764f0113bb3fbaed85cb57138026ca560a8ad"
+}

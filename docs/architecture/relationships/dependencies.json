@@ -1,0 +1,115 @@
+{
+  "import_graph": {
+    "module_analyzer": []
+  },
+  "call_graph": {
+    "module_analyzer": [
+      {
+        "from": "module_analyzer.ModuleAnalyzer.analyze_project",
+        "to": "_find_python_files",
+        "type": "method_call"
+      },
+      {
+        "from": "module_analyzer.ModuleAnalyzer.analyze_project",
+        "to": "_analyze_relationships",
+        "type": "method_call"
+      },
+      {
+        "from": "module_analyzer.ModuleAnalyzer.analyze_project",
+        "to": "_create_index",
+        "type": "method_call"
+      },
+      {
+        "from": "module_analyzer.ModuleAnalyzer.analyze_project",
+        "to": "_save_documentation",
+        "type": "method_call"
+      },
+      {
+        "from": "module_analyzer.ModuleAnalyzer.analyze_project",
+        "to": "_analyze_all_files",
+        "type": "method_call"
+      },
+      {
+        "from": "module_analyzer.ModuleAnalyzer._analyze_all_files",
+        "to": "analyze_file",
+        "type": "method_call"
+      },
+      {
+        "from": "module_analyzer.ModuleAnalyzer.analyze_file",
+        "to": "_read_file_safe",
+        "type": "method_call"
+      },
+      {
+        "from": "module_analyzer.ModuleAnalyzer.analyze_file",
+        "to": "_extract_structure",
+        "type": "method_call"
+      },
+      {
+        "from": "module_analyzer.ModuleAnalyzer.analyze_file",
+        "to": "_create_module_doc",
+        "type": "method_call"
+      },
+      {
+        "from": "module_analyzer.ModuleAnalyzer.analyze_file",
+        "to": "_get_file_hash",
+        "type": "method_call"
+      },
+      {
+        "from": "module_analyzer.ModuleAnalyzer.analyze_file",
+        "to": "_create_error_doc",
+        "type": "method_call"
+      },
+      {
+        "from": "module_analyzer.ModuleAnalyzer.analyze_file",
+        "to": "_create_default_description",
+        "type": "method_call"
+      },
+      {
+        "from": "module_analyzer.ModuleAnalyzer.analyze_file",
+        "to": "_ask_ai_about_module",
+        "type": "method_call"
+      },
+      {
+        "from": "module_analyzer.ModuleAnalyzer._extract_structure",
+        "to": "_extract_class",
+        "type": "method_call"
+      },
+      {
+        "from": "module_analyzer.ModuleAnalyzer._extract_structure",
+        "to": "_extract_method",
+        "type": "method_call"
+      },
+      {
+        "from": "module_analyzer.ModuleAnalyzer._extract_class",
+        "to": "_extract_method",
+        "type": "method_call"
+      },
+      {
+        "from": "module_analyzer.ModuleAnalyzer._extract_method",
+        "to": "_extract_calls_and_complexity",
+        "type": "method_call"
+      },
+      {
+        "from": "module_analyzer.ModuleAnalyzer._analyze_relationships",
+        "to": "_find_cycles",
+        "type": "method_call"
+      },
+      {
+        "from": "module_analyzer.ModuleAnalyzer._analyze_relationships",
+        "to": "_is_internal_module",
+        "type": "method_call"
+      },
+      {
+        "from": "module_analyzer.ModuleAnalyzer._create_index",
+        "to": "_categorize_layers",
+        "type": "method_call"
+      }
+    ]
+  },
+  "cycles": [],
+  "statistics": {
+    "total_imports": 0,
+    "total_calls": 20,
+    "num_cycles": 0
+  }
+}
