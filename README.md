@@ -47,8 +47,47 @@ I don’t give the “final answer,” but I want to share the way I approach pr
 
 ---
 
+## 🛠️ Tools | 도구
+
+### Module Analyzer
+Python 코드베이스 자동 분석 및 문서화 도구
+
+#### 1. **module_analyzer.py** - 기본 버전
+- 코드 구조 자동 분석 (클래스, 메서드, 함수)
+- 복잡도 계산 및 의존성 분석
+- JSON 문서 자동 생성
+- **사용법**: [README_MODULE_ANALYZER.md](README_MODULE_ANALYZER.md)
+
+```bash
+python module_analyzer.py /path/to/project --no-ai
+```
+
+#### 2. **module_analyzer_vllm.py** - 로컬 LLM 버전
+- vLLM + Llama 3.2 통합
+- AI 기반 모듈 역할 분석
+- 완전한 프라이버시 (로컬 실행)
+- **사용법**: [README_VLLM.md](README_VLLM.md)
+
+```bash
+# vLLM 서버 시작
+python -m vllm.entrypoints.openai.api_server \
+    --model meta-llama/Llama-3.2-3B-Instruct \
+    --port 8000
+
+# 분석 실행
+python module_analyzer_vllm.py /path/to/project
+```
+
+**주요 기능**:
+- 🤖 로컬 LLM 기반 지능형 분석
+- 💾 스마트 캐싱 (변경된 파일만 재분석)
+- ⚡ 병렬 처리로 빠른 분석
+- 🔒 완전한 프라이버시 보장
+
+---
+
 ## 📝 Closing | 마무리
-- **EN**: This is not my “answer.” It’s just one way I approached the problem. The judgment is yours.  
-- **KR**: 이건 내 “정답”이 아니다. 그저 내가 이렇게 접근해봤다는 하나의 관점일 뿐이다. 판단은 여러분의 몫이다.  
+- **EN**: This is not my "answer." It's just one way I approached the problem. The judgment is yours.
+- **KR**: 이건 내 "정답"이 아니다. 그저 내가 이렇게 접근해봤다는 하나의 관점일 뿐이다. 판단은 여러분의 몫이다.
 
 ---
